@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temporary-test-resources
+  namespace: temporary-test-resources
+  labels:
+    temporary-test-resources: "true"
+spec:
+  containers:
+  - name: temporary-test-resources
+    image: gcr.io/google_containers/nginx-slim:0.8
+    ports:
+    - name: web
+      containerPort: 80
+    volumeMounts:
+    - name: temporary-test-resources
+      mountPath: /usr/share/nginx/html
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 20m
+        memory: 10Mi
+  volumes:
+  - name: temporary-test-resources
+    persistentVolumeClaim:
+      claimName: temporary-test-resources
+

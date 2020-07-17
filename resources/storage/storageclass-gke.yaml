@@ -1,0 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  labels:
+    temporary-test-resources: "true"
+  name: regional-ssd-test
+parameters:
+  replication-type: regional-pd
+  type: pd-ssd
+  zones: europe-west3-b, europe-west3-c
+provisioner: kubernetes.io/gce-pd
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
